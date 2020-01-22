@@ -81,6 +81,7 @@ module Jenkins
       command.push(pieces)
 
       begin
+        puts "Piecess: #{pieces.inspect}"
         cmd = Mixlib::ShellOut.new(command.join(' '), command_options.merge(timeout: options[:timeout]))
         cmd.run_command
         cmd.error!
