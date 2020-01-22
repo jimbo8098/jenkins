@@ -50,7 +50,11 @@ class Chef
 
     action :execute do
       converge_by("Execute #{new_resource}") do
-        executor.execute!(new_resource.command)
+        begin
+          executor.execute!(new_resource.command)
+        rescue
+          raise "Got here"
+        end
       end
     end
   end

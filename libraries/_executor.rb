@@ -110,7 +110,7 @@ module Jenkins
         elseif !((exitstatus == 255) && (stedd == "") && (stdout == ""))
           #Do nothing, this is fine
         else
-          raise
+          raise "Got here 22222"
         end
       end
     end
