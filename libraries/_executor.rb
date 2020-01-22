@@ -88,6 +88,7 @@ module Jenkins
       rescue Mixlib::ShellOut::ShellCommandFailed
         exitstatus = cmd.exitstatus
         stderr = cmd.stderr
+        stout = cmd.stdout
         # We'll fall back to executing the command without authentication if the
         # command fails very specific ways. These are signs that:
         #
@@ -105,8 +106,11 @@ module Jenkins
         elsif (exitstatus == 255) && (stderr =~ /^"--username" is not a valid option/)
           command.reject! { |c| c =~ /--username|--password/ }
           retry
+        elseif !((exitstatus == 255) && (stedd == "") && (stdout == ""))
+          #Do nothing, this is fine
+        else
+          raise
         end
-        raise
       end
     end
 
